@@ -20,7 +20,8 @@ if (mysqli_connect_errno()) {
 //$stmt->bind_param('s', $_POST['assoc_session_id']);
 //$stmt->execute(); 
 
-$result = $mysqli->query("SELECT * FROM users WHERE assoc_session_id = '" . $mysqli->real_escape_string($_POST['assoc_session_id']) ."' AND `updated` > DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -30 MINUTE)");
+//$result = $mysqli->query("SELECT * FROM users WHERE assoc_session_id = '" . $mysqli->real_escape_string($_POST['assoc_session_id']) ."' AND `updated` > DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -30 MINUTE)");
+$result = $mysqli->query("SELECT * FROM users WHERE assoc_session_id = '" . $mysqli->real_escape_string($_POST['assoc_session_id']) ."'");
 	
 $userArray = null;
 while ($row = $result->fetch_assoc()) { 
