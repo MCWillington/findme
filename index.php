@@ -228,6 +228,8 @@
 				$('#url-picker').on('click',function() {
 					if(!$(this).hasClass('active'))
 						$(this).stop().addClass('active', {duration:500});
+					else
+						$('#url-picker').stop().removeClass('active');						
 					if($(this).val() == "")
 						$('#url-picker-input').val(document.URL);
 				});
@@ -239,63 +241,8 @@
 			});
 		</script>
 	
-		<style>
-			#url-picker {
-				opacity:0;
-				position: fixed;
-				top: 10px;
-				left: 10px;
-				height: 50px;
-				width: 100%;
-				z-index: 2;
-				overflow: hidden;
-			}
-			#url-picker .view-link-image {
-				position: absolute;
-				top: 0;
-				left: -4px;
-				z-index: 2;
-				cursor: pointer;
-			}
-			#url-picker .url-picker {
-				position: absolute;
-				top: -12px;
-				left: -235px;
-				width: 400px;
-				height: 50px;
-				z-index: 1;
-				transition: all 0.5s ease-in;
-			}
-			#url-picker input {
-				position: relative;
-				top: 0;
-				width: 216px;
-				height: 38px;
-				line-height: 38px;
-				border: 0;
-				border-bottom: 1px solid black;
-				padding: 1px 10px;
-				display: inline-block;
-			}
-			#url-picker .url-picker-close {
-				position: relative;
-				top: 17px;
-				right: 5px;
-				width: 90px;
-				height: 40px;
-				cursor: pointer;
-				z-index: 5;
-				background: url(img/X.png) no-repeat right center white;
-				display: inline-block;
-				border-bottom: 1px solid black;
-			}
-			#url-picker.active .url-picker {
-				left: 92px;
-			}
-		</style>
-	
 		<div id="url-picker">
-			<img src="img/VIEW-LINK.png" class="view-link-image">
+			<div class="view-link-image">View Link</div>
 			<div class="url-picker">
 				<input id="url-picker-input" onClick="this.setSelectionRange(0, this.value.length);window.JSInterface.copyLink(this.value);" type="text" value="" readonly>
 				<div class="url-picker-close"></div>
