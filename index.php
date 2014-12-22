@@ -1,17 +1,5 @@
 <?php 
 	
-	// if(empty($sid)) {
-		// session_start();
-	// } else {
-		// if (!isset($_SESSION['CREATED'])) {
-			// $_SESSION['CREATED'] = time();
-		// } else if (time() - $_SESSION['CREATED'] > 180) {
-			////session started more than 3 minutes ago
-			// session_regenerate_id(true);    // change session ID for the current session an invalidate old session ID
-			// $_SESSION['CREATED'] = time();  // update creation time
-		// }
-	// }
-	
 	function randomString($length) {
 		$character_array = array_merge(range(a, z), range(0, 9));
 		$string = "";
@@ -21,10 +9,20 @@
 		return $string;
 	}
 	
-	//session_start();
-	//session_regenerate_id(true);
-	//$sid = session_id();
-	$sid = randomString(6);
+	session_start();
+	if(isset($_SESSION['session']) && $_GET['new_session'] != true) {
+		$sid = $_SESSION['session'];
+		$newSession = false;
+	} else {
+		$sid = randomString(6);
+		$newSession = true;
+	}
+	
+	if( strpos( $url, "#" ) === false ) 
+		$hash = $sid;
+	else 
+		$hash = urlencode( explode( "#", $url )[1] ); // arrays are indexed from 0
+	
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +42,9 @@
                 https://developers.google.com/maps/documentation/javascript/tutorial#api_key
             After your sign up replace the key in the URL below or paste in the new script tag that Google provides.
         -->
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASm3CwaK9qtcZEWYa-iQwHaGi3gcosAJc&sensor=false"></script>
 		<script type="text/javascript" src="js/location.js"></script>
 		<script type="text/javascript" src="js/map.js"></script>
@@ -59,7 +60,25 @@
 			
 				<?php echo "var session_id = '" . $sid . "';"; ?>
 				
-				var windowHash = window.location.hash;
+				var windowHash = "<?php echo $hash; ?>";
+				
+				<?php if(!$newSession) { ?>
+			
+				$( "#dialog-confirm" ).dialog({
+				  resizable: false,
+				  height:140,
+				  modal: true,
+				  buttons: {
+					"Continue": function() {
+					  $( this ).dialog( "close" );
+					},
+					"New Session": function() {
+					  $( this ).dialog( "close" );
+					}
+				  }
+				});
+				
+				<?php } ?>
 				
 				if(windowHash != "") {
 					var assoc_session_id = windowHash.substring(1,windowHash.length);
@@ -292,8 +311,13 @@
 			#url-picker.active .url-picker {
 				left: 92px;
 			}
+	
 		</style>
 	
+		<div style="display:none" id="dialog-confirm" title="Continue session?">
+		  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Would you like to start a new session or continue with this one?</p>
+		</div>
+
 		<div id="url-picker">
 			<img src="img/VIEW-LINK.png" class="view-link-image">
 			<div class="url-picker">
