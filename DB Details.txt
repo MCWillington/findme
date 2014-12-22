@@ -1,0 +1,3 @@
+DB: findme
+User: findmeuser
+Pass: wh3r37r3u

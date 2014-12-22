@@ -1,0 +1,85 @@
+
+/* Set a size for our map container, the Google Map will take up 100% of this container */
+html,
+body,
+#map {
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+}
+
+#map {
+	background: url(../img/ajax-loader.gif) no-repeat center center;
+	background-size: 80px;
+}
+
+#overlay {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: black;
+	opacity: 0.4;
+	display: none;
+}
+			
+.popup {
+	width: 424px;
+	height: 600px;
+	overflow: hidden;
+	overflow-y: auto;
+	border-radius: 10px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -300px 0 0 -212px;
+	display: none;
+	background-size: 73% !important;
+}
+#initial-popup {
+	background: url(../img/first-time-popup.png) no-repeat center center transparent;
+	z-index: 2;
+}
+#user-popup {
+	background: url(../img/findme-popup.png) no-repeat center center transparent;
+	z-index: 1;
+}
+#receiver-popup {
+	background: url(../img/popup-receive.png) no-repeat center center transparent;
+	z-index: 1;
+}
+
+.popup .popup-view {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.popup .popup-view input,
+.popup .popup-view select {
+	width: 204px;
+	position: absolute;
+	top: 302px;
+	left: 102px;
+	height: 26px;
+	border: none;
+	padding: 10px 8px;
+}
+
+.popup .popup-view #close-popup {
+	position: absolute;
+	top: 360px;
+	left: -6px;
+	width: 438px;
+	height: 152px;
+	background: url(../img/close-unpressedstate.png) no-repeat center center transparent;
+}
+
+.popup .popup-view #close-popup:hover,
+.popup .popup-view #close-popup:active {
+	background-image: url(../img/close-unpressedstate.png);
+}
